@@ -9,7 +9,7 @@ class SpaceStation(BaseModel):
     crew_size: int = Field(ge=1, le=20)
     power_level: float = Field(ge=0.0, le=100.0)
     oxygen_level: float = Field(ge=0.0, le=100.0)
-    last_maintenance: datetime
+    last_maintenance: datetime = Field(...)
     is_operational: bool = Field(default=True)
     notes: Optional[str] = Field(default=None, max_length=200)
 
@@ -40,7 +40,7 @@ def main() -> None:
             crew_size=6,
             power_level=85.5,
             oxygen_level=92.3,
-            last_maintenance="2024-01-15T10:30:00",
+            last_maintenance=datetime(2025, 12, 18),
             is_operational=True,
             notes="All systems nominal."
             )
@@ -52,10 +52,10 @@ def main() -> None:
         invalid_station = SpaceStation(
             station_id="ISS001",
             name="International Space Station",
-            crew_size=6,
-            power_level=805.5,
+            crew_size=60,
+            power_level=85.5,
             oxygen_level=92.3,
-            last_maintenance="2024-01-15T10:30:00",
+            last_maintenance=datetime(2024, 5, 8),
             is_operational=True,
             notes="All systems nominal."
         )

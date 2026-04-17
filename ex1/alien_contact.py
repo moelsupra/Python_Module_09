@@ -13,9 +13,9 @@ class ContactType(str, Enum):
 
 class AlienContact(BaseModel):
     contact_id: str = Field(min_length=5, max_length=15)
-    timestamp: datetime
+    timestamp: datetime = Field(...)
     location: str = Field(min_length=3, max_length=100)
-    contact_type: ContactType
+    contact_type: ContactType = Field(...)
     signal_strength: float = Field(ge=0.0, le=10.0)
     duration_minutes: int = Field(ge=1, le=1440)
     witness_count: int = Field(ge=1, le=100)
@@ -50,7 +50,6 @@ class AlienContact(BaseModel):
 
 
 def display_contact(contact: AlienContact) -> None:
-    """Display alien contact report information."""
     print("Valid contact report:")
     print(f"ID: {contact.contact_id}")
     print(f"Type: {contact.contact_type.value}")
@@ -68,7 +67,7 @@ def main() -> None:
 
     contact = AlienContact(
         contact_id="AC_2024_001",
-        timestamp="2024-03-15T22:45:00",
+        timestamp=datetime(2024, 3, 15),
         location="Area 51, Nevada",
         contact_type=ContactType.radio,
         signal_strength=8.5,
@@ -85,7 +84,7 @@ def main() -> None:
     try:
         AlienContact(
             contact_id="AC_2024_002",
-            timestamp="2024-03-15T23:00:00",
+            timestamp=datetime(2024, 3, 15),
             location="Roswell, New Mexico",
             contact_type=ContactType.telepathic,
             signal_strength=5.0,

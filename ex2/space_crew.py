@@ -16,7 +16,7 @@ class Rank(str, Enum):
 class CrewMember(BaseModel):
     member_id: str = Field(min_length=3, max_length=10)
     name: str = Field(min_length=2, max_length=50)
-    rank: Rank
+    rank: Rank = Field(...)
     age: int = Field(ge=18, le=80)
     specialization: str = Field(min_length=3, max_length=30)
     years_experience: int = Field(ge=0, le=50)
@@ -27,7 +27,7 @@ class SpaceMission(BaseModel):
     mission_id: str = Field(min_length=5, max_length=15)
     mission_name: str = Field(min_length=3, max_length=100)
     destination: str = Field(min_length=3, max_length=50)
-    launch_date: datetime
+    launch_date: datetime = Field(...)
     duration_days: int = Field(ge=1, le=3650)
 
     crew: List[CrewMember] = Field(min_length=1, max_length=12)
@@ -98,7 +98,7 @@ def main() -> None:
         mission_id="M2024_MARS",
         mission_name="Mars Colony Establishment",
         destination="Mars",
-        launch_date="2024-06-01T08:00:00",
+        launch_date=datetime(2024, 6, 1),
         duration_days=900,
         budget_millions=2500.0,
         crew=[
@@ -138,7 +138,7 @@ def main() -> None:
             mission_id="M2024_BAD",
             mission_name="Doomed Mission",
             destination="Venus",
-            launch_date="2024-07-01T08:00:00",
+            launch_date=datetime(2024, 7, 1),
             duration_days=200,
             budget_millions=500.0,
             crew=[
