@@ -9,7 +9,7 @@ class SpaceStation(BaseModel):
     crew_size: int = Field(ge=1, le=20)
     power_level: float = Field(ge=0.0, le=100.0)
     oxygen_level: float = Field(ge=0.0, le=100.0)
-    last_maintenance: datetime = Field(...)
+    last_maintenance: datetime = Field(description="Last maintenance datetime")
     is_operational: bool = Field(default=True)
     notes: Optional[str] = Field(default=None, max_length=200)
 
@@ -24,30 +24,27 @@ def display_station(station: SpaceStation) -> None:
     print(f"Power: {station.power_level}%")
     print(f"Oxygen: {station.oxygen_level}%")
     print(f"Status: {status}")
-    # print(f"Last maintenance: {station.last_maintenance}")
-    # if station.notes:
-    #     print(f"Notes: {station.notes}")
 
 
 def main() -> None:
+    
+    print("Space Station Data Validation")
+    print("=" * 40)
+
+    station = SpaceStation(
+        station_id="ISS001",
+        name="International Space Station",
+        crew_size=6,
+        power_level=85.5,
+        oxygen_level=92.3,
+        last_maintenance=datetime(2025, 12, 18),
+        is_operational=True,
+        notes="All systems nominal."
+        )
+    display_station(station)
+
+    print("\n" + "=" * 40)
     try:
-        print("Space Station Data Validation")
-        print("=" * 40)
-
-        station = SpaceStation(
-            station_id="ISS001",
-            name="International Space Station",
-            crew_size=6,
-            power_level=85.5,
-            oxygen_level=92.3,
-            last_maintenance=datetime(2025, 12, 18),
-            is_operational=True,
-            notes="All systems nominal."
-            )
-        display_station(station)
-
-        print("\n" + "=" * 40)
-
         print("Expected validation error:")
         invalid_station = SpaceStation(
             station_id="ISS001",
