@@ -23,11 +23,13 @@ def display_station(station: SpaceStation) -> None:
     print(f"Crew: {station.crew_size} people")
     print(f"Power: {station.power_level}%")
     print(f"Oxygen: {station.oxygen_level}%")
+    print(f"Last maintenance: {station.last_maintenance}")
     print(f"Status: {status}")
+    if station.notes:
+        print(f"Notes: {station.notes}")
 
 
 def main() -> None:
-    
     print("Space Station Data Validation")
     print("=" * 40)
 
@@ -44,8 +46,8 @@ def main() -> None:
     display_station(station)
 
     print("\n" + "=" * 40)
+    print("Expected validation error:")
     try:
-        print("Expected validation error:")
         invalid_station = SpaceStation(
             station_id="ISS001",
             name="International Space Station",
